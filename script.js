@@ -1,12 +1,23 @@
 const finalMessageButton = document.getElementById("finalMessageButton");
 const finalModal = document.getElementById("finalModal");
 const closeModal = document.getElementById("closeModal");
+
 const audioButton = document.getElementById("audioButton");
+const playlistSongButton = document.getElementById("playlistSongButton");
 const audioText = document.getElementById("audioText");
 const audioIcon = document.getElementById("audioIcon");
+
+const farewellSong = document.getElementById("farewellSong");
+const musicStartMessage = document.getElementById("musicStartMessage");
+const startMusicButton = document.getElementById("startMusicButton");
+
 const year = document.getElementById("year");
 
 year.textContent = new Date().getFullYear();
+
+farewellSong.volume = 0.5;
+
+/* Final messages modal */
 
 function openModal() {
   finalModal.classList.add("show");
@@ -23,6 +34,7 @@ function closeMessageModal() {
 }
 
 finalMessageButton.addEventListener("click", openModal);
+
 closeModal.addEventListener("click", closeMessageModal);
 
 finalModal.addEventListener("click", (event) => {
@@ -37,50 +49,74 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-/* Ambiente sonoro sencillo, generado por el navegador */
-let audioContext;
-let ambientInterval;
-let isAmbientPlaying = false;
+/* Song controls */
 
-function playAmbientTone() {
-  if (!audioContext) {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+function updatePlayButtons(isPlaying) {
+  if (isPlaying) {
+    audioText.textContent = "Pause song";
+    audioIcon.textContent = "❚❚";
+    playlistSongButton.innerHTML = "<span>❚❚</span> Pause Alex's song";
+  } else {
+    audioText.textContent = "Play song";
+    audioIcon.textContent = "♫";
+    playlistSongButton.innerHTML = "<span>♫</span> Play Alex's song";
   }
-
-  const oscillator = audioContext.createOscillator();
-  const gain = audioContext.createGain();
-
-  oscillator.type = "sine";
-  oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
-  oscillator.frequency.exponentialRampToValueAtTime(
-    329.63,
-    audioContext.currentTime + 1.7
-  );
-
-  gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.035, audioContext.currentTime + 0.3);
-  gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 2.6);
-
-  oscillator.connect(gain);
-  gain.connect(audioContext.destination);
-
-  oscillator.start();
-  oscillator.stop(audioContext.currentTime + 2.7);
 }
 
-audioButton.addEventListener("click", () => {
-  isAmbientPlaying = !isAmbientPlaying;
+async function playSong() {
+  try {
+    await farewellSong.play();
 
-  if (isAmbientPlaying) {
-    playAmbientTone();
-    ambientInterval = setInterval(playAmbientTone, 3200);
-
-    audioText.textContent = "Pause ambient sound";
-    audioIcon.textContent = "❚❚";
-  } else {
-    clearInterval(ambientInterval);
-
-    audioText.textContent = "Play ambient sound";
-    audioIcon.textContent = "♫";
+    updatePlayButtons(true);
+    musicStartMessage.classList.remove("show");
+  } catch (error) {
+    console.log("Autoplay was blocked. User interaction is required.");
+    musicStartMessage.classList.add("show");
   }
+}
+
+function pauseSong() {
+  farewellSong.pause();
+  updatePlayButtons(false);
+}
+
+function toggleSong() {
+  if (farewellSong.paused) {
+    playSong();
+  } else {
+    pauseSong();
+  }
+}
+
+/* Try to play music as soon as the page opens */
+
+window.addEventListener("load", () => {
+  playSong();
+});
+
+/* Fallback button if autoplay is blocked */
+
+startMusicButton.addEventListener("click", () => {
+  playSong();
+});
+
+/* Music buttons */
+
+audioButton.addEventListener("click", toggleSong);
+playlistSongButton.addEventListener("click", toggleSong);
+
+farewellSong.addEventListener("ended", () => {
+  farewellSong.currentTime = 0;
+  updatePlayButtons(false);
+});
+
+farewellSong.addEventListener("error", () => {
+  console.error(
+    "Audio file not found. Make sure alex-song.mp3 is in the same folder as index.html."
+  );
+
+  audioText.textContent = "Song unavailable";
+  audioIcon.textContent = "!";
+
+  playlistSongButton.innerHTML = "<span>!</span> Song unavailable";
 });
