@@ -2,11 +2,12 @@
   --bg: #03050d;
   --paper: #f2ebdf;
   --purple: #a17dff;
+  --purple-soft: #cbbcff;
   --pink: #ff759f;
   --yellow: #ffd166;
   --blue: #7bdff2;
   --muted: #b4adc0;
-
+  --dark-card: #171124;
   --serif: "Cormorant Garamond", Georgia, serif;
   --sans: "Montserrat", Arial, sans-serif;
   --mono: "DM Mono", monospace;
@@ -50,7 +51,9 @@ h3 {
   font-family: var(--serif);
 }
 
-/* SPACE BACKGROUND */
+/* =====================================================
+   SPACE BACKGROUND
+===================================================== */
 
 body::before {
   position: fixed;
@@ -59,8 +62,16 @@ body::before {
   content: "";
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 82% 12%, rgba(190, 150, 255, 0.24), transparent 28%),
-    radial-gradient(ellipse at 18% 45%, rgba(55, 81, 180, 0.2), transparent 42%),
+    radial-gradient(
+      ellipse at 82% 12%,
+      rgba(190, 150, 255, 0.24),
+      transparent 28%
+    ),
+    radial-gradient(
+      ellipse at 18% 45%,
+      rgba(55, 81, 180, 0.2),
+      transparent 42%
+    ),
     linear-gradient(140deg, #02030a, #08112b 48%, #04030c);
 }
 
@@ -123,7 +134,18 @@ footer {
   z-index: 1;
 }
 
-/* TYPOGRAPHY */
+/* =====================================================
+   GENERAL LAYOUT & TYPOGRAPHY
+===================================================== */
+
+.nav,
+.hero-content,
+.section,
+.space-memories,
+.playlist-section {
+  width: min(1200px, calc(100% - 48px));
+  margin-inline: auto;
+}
 
 h1 {
   margin: 8px 0 26px;
@@ -149,24 +171,15 @@ h2 {
 .pretitle,
 .section-number,
 .mission-label {
-  color: #cbbcff;
+  color: var(--purple-soft);
   font-family: var(--mono);
   font-size: 0.7rem;
   letter-spacing: 0.12em;
 }
 
-/* SHARED LAYOUT */
-
-.nav,
-.hero-content,
-.section,
-.space-memories,
-.playlist-section {
-  width: min(1200px, calc(100% - 48px));
-  margin-inline: auto;
-}
-
-/* NAVIGATION */
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
 .nav {
   padding: 28px 0;
@@ -199,7 +212,9 @@ h2 {
   color: var(--yellow);
 }
 
-/* BUTTONS */
+/* =====================================================
+   BUTTONS
+===================================================== */
 
 .button,
 .final-button {
@@ -232,7 +247,9 @@ h2 {
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-/* HERO */
+/* =====================================================
+   HERO
+===================================================== */
 
 .hero {
   min-height: 100vh;
@@ -242,8 +259,8 @@ h2 {
   min-height: calc(100vh - 80px);
   padding: 45px 0;
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
 }
 
 .hero-grid,
@@ -273,7 +290,9 @@ h2 {
   gap: 12px;
 }
 
-/* SPACE ILLUSTRATION */
+/* =====================================================
+   SPACE ILLUSTRATION
+===================================================== */
 
 .orbit-scene {
   position: relative;
@@ -446,7 +465,9 @@ h2 {
   color: var(--yellow);
 }
 
-/* SECTIONS */
+/* =====================================================
+   STANDARD SECTIONS
+===================================================== */
 
 .section,
 .space-memories {
@@ -477,7 +498,7 @@ h2 {
 }
 
 .letter em {
-  color: #cbbcff;
+  color: var(--purple-soft);
 }
 
 .letter-final {
@@ -486,11 +507,13 @@ h2 {
 }
 
 .signature {
-  color: #cbbcff !important;
+  color: var(--purple-soft) !important;
   font: 0.75rem var(--mono);
 }
 
-/* QUOTE */
+/* =====================================================
+   QUOTE
+===================================================== */
 
 .quote-section {
   padding: 110px 24px;
@@ -515,7 +538,9 @@ blockquote {
   letter-spacing: 0.1em;
 }
 
-/* ACHIEVEMENTS */
+/* =====================================================
+   ACHIEVEMENTS
+===================================================== */
 
 .section-heading {
   margin: 52px 0 45px;
@@ -589,7 +614,9 @@ blockquote {
   line-height: 1.55;
 }
 
-/* MEMES */
+/* =====================================================
+   MEME SECTION
+===================================================== */
 
 .mission-section-header {
   margin: 52px 0 45px;
@@ -695,8 +722,6 @@ blockquote {
   line-height: 1.6;
 }
 
-/* FUNADOS BIG */
-
 .mission-featured {
   grid-column: 1 / -1;
   min-height: 680px;
@@ -722,10 +747,6 @@ blockquote {
   margin: 0;
   padding: 12px;
   background: #090711;
-}
-
-.mission-featured .mission-image img {
-  object-fit: contain;
 }
 
 .featured-text {
@@ -769,82 +790,150 @@ blockquote {
   font: 0.67rem var(--mono);
 }
 
-/* PLAYLIST */
+/* =====================================================
+   PLAYLIST — FIXED LAYOUT
+===================================================== */
 
 .playlist-section {
   position: relative;
-  min-height: 540px;
-  margin-bottom: 125px;
-  padding: 55px 7%;
-  display: flex;
+  min-height: 560px;
+  margin: 10px auto 125px;
+  padding: 55px 58px;
+  display: grid;
+  grid-template-columns: minmax(245px, 310px) minmax(0, 1fr) 165px;
+  gap: 34px;
   align-items: center;
-  justify-content: flex-end;
   overflow: hidden;
   background:
-    radial-gradient(circle at 28% 55%, rgba(255, 113, 158, 0.2), transparent 18rem),
+    radial-gradient(
+      circle at 28% 55%,
+      rgba(255, 113, 158, 0.2),
+      transparent 18rem
+    ),
+    radial-gradient(
+      circle at 76% 25%,
+      rgba(92, 113, 220, 0.16),
+      transparent 18rem
+    ),
     #18112a;
 }
 
-.playlist-content {
+/* Vinyl occupies the left column */
+
+.playlist-section .vinyl {
   position: relative;
-  z-index: 2;
-  max-width: 550px;
-}
-
-.playlist-content > p:not(.eyebrow) {
-  color: #dad1df;
-  line-height: 1.8;
-}
-
-.vinyl {
-  position: absolute;
-  top: 35px;
-  left: -65px;
-  width: 470px;
-  height: 470px;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  width: min(100%, 310px);
+  height: auto;
+  aspect-ratio: 1;
+  margin: 0 auto;
   border: 14px solid #08070d;
   border-radius: 50%;
-  background: repeating-radial-gradient(circle, #201b2b 0 4px, #120f19 5px 8px);
+  background:
+    repeating-radial-gradient(
+      circle,
+      #201b2b 0 4px,
+      #120f19 5px 8px
+    );
+  box-shadow:
+    0 0 0 1px #514261,
+    20px 15px 45px rgba(0, 0, 0, 0.36);
   animation: spin 18s linear infinite;
 }
 
-.vinyl-center {
+.playlist-section .vinyl::after {
   position: absolute;
-  inset: 145px;
+  inset: 12%;
+  content: "";
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 50%;
+}
+
+.playlist-section .vinyl-center {
+  position: absolute;
+  inset: 31%;
   border-radius: 50%;
   background: var(--pink);
   box-shadow: 0 0 0 15px #d75882;
 }
 
-.spotify-qr-card {
-  position: absolute;
-  right: 5%;
-  bottom: 35px;
-  width: 160px;
+/* Text occupies the center column */
+
+.playlist-section .playlist-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+}
+
+.playlist-section .playlist-content h2 {
+  max-width: 600px;
+  margin: 12px 0 24px;
+  font-size: clamp(2.7rem, 4.4vw, 4.8rem);
+  line-height: 0.86;
+}
+
+.playlist-section .playlist-content > p:not(.eyebrow) {
+  max-width: 490px;
+  margin: 0 0 28px;
+  color: #d8cedd;
+  line-height: 1.8;
+}
+
+.playlist-section .playlist-actions {
+  margin-top: 0;
+}
+
+/* QR occupies the third column and will not overlap text */
+
+.playlist-section .spotify-qr-card {
+  position: relative;
+  right: auto;
+  bottom: auto;
+  z-index: 3;
+  width: 165px;
+  margin: 0;
   padding: 14px;
-  color: #23192f;
+  color: #21192c;
   text-align: center;
   background: var(--paper);
+  box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.2);
   transform: rotate(3deg);
 }
 
-.spotify-qr-card p {
+.playlist-section .spotify-qr-card p {
   margin: 0 0 10px;
-  font: 0.56rem var(--mono);
+  color: #685779;
+  font-family: var(--mono);
+  font-size: 0.53rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
 }
 
-.spotify-qr-card img {
+.playlist-section .spotify-qr-card img {
   width: 100%;
   display: block;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: #ffffff;
 }
 
-.spotify-qr-card strong {
+.playlist-section .spotify-qr-card strong {
   display: block;
   margin-top: 10px;
-  font: 700 1rem/1 var(--serif);
+  color: #352a3d;
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 0.95;
 }
 
-/* FINAL */
+/* =====================================================
+   FINAL SECTION AND FOOTER
+===================================================== */
 
 .final-section {
   padding: 140px 24px;
@@ -883,7 +972,9 @@ footer {
   font: 0.62rem var(--mono);
 }
 
-/* MODALS */
+/* =====================================================
+   MODALS
+===================================================== */
 
 .modal,
 .meme-modal {
@@ -918,7 +1009,7 @@ footer {
   padding: 58px 42px 40px;
   overflow-y: auto;
   text-align: center;
-  background: #171124;
+  background: var(--dark-card);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -951,7 +1042,9 @@ footer {
   line-height: 1.7;
 }
 
-/* PHOTO CAROUSEL */
+/* =====================================================
+   PHOTO CAROUSEL
+===================================================== */
 
 .photo-carousel {
   width: min(100%, 760px);
@@ -1039,11 +1132,13 @@ footer {
   transform: scale(1.35);
 }
 
-/* MESSAGE CARDS */
+/* =====================================================
+   FINAL MESSAGES
+===================================================== */
 
 .messages-divider {
   margin: 40px 0 22px;
-  color: #cbbcff;
+  color: var(--purple-soft);
   font: 0.65rem var(--mono);
   letter-spacing: 0.12em;
 }
@@ -1109,7 +1204,9 @@ footer {
   background: #090711;
 }
 
-/* MUSIC */
+/* =====================================================
+   MUSIC POPUP
+===================================================== */
 
 .music-start-message {
   position: fixed;
@@ -1144,7 +1241,9 @@ footer {
   background: var(--yellow);
 }
 
-/* ANIMATIONS */
+/* =====================================================
+   ANIMATIONS
+===================================================== */
 
 @keyframes float {
   50% {
@@ -1158,7 +1257,26 @@ footer {
   }
 }
 
-/* RESPONSIVE */
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1000px) {
+  .playlist-section {
+    grid-template-columns: minmax(220px, 0.8fr) minmax(320px, 1.2fr);
+    padding-bottom: 210px;
+  }
+
+  .playlist-section .vinyl {
+    width: min(100%, 300px);
+  }
+
+  .playlist-section .spotify-qr-card {
+    position: absolute;
+    right: 55px;
+    bottom: 30px;
+  }
+}
 
 @media (max-width: 850px) {
   .hero-grid,
@@ -1193,16 +1311,30 @@ footer {
   .mission-timeline {
     grid-template-columns: repeat(2, 1fr);
   }
+}
 
+@media (max-width: 650px) {
   .playlist-section {
-    padding-bottom: 210px;
-    justify-content: flex-start;
+    width: calc(100% - 32px);
+    min-height: auto;
+    padding: 45px 24px 230px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
   }
 
-  .vinyl {
-    left: auto;
-    right: -250px;
-    opacity: 0.5;
+  .playlist-section .vinyl {
+    width: min(100%, 290px);
+  }
+
+  .playlist-section .playlist-content h2 {
+    font-size: clamp(3.1rem, 13vw, 4.5rem);
+  }
+
+  .playlist-section .spotify-qr-card {
+    right: 50%;
+    bottom: 28px;
+    transform: translateX(50%) rotate(2deg);
   }
 }
 
@@ -1231,16 +1363,6 @@ footer {
 
   .achievement-card {
     min-height: 310px;
-  }
-
-  .playlist-section {
-    min-height: 620px;
-    padding: 50px 25px 225px;
-  }
-
-  .spotify-qr-card {
-    right: 50%;
-    transform: translateX(50%);
   }
 
   .modal-box,
